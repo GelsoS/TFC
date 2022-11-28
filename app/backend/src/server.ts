@@ -1,6 +1,5 @@
 import App from './app';
 import 'dotenv/config';
 
-const PORT = process.env.APP_PORT || 3001;
 
-new App().start(PORT);
+new App().start(process.env.APP_PORT || 3001);

@@ -1,0 +1,18 @@
+import * as Joi from 'joi';
+import { ILogin } from '../interfaces/interface';
+
+export default function validaLogin(body: ILogin) {
+  const schema = Joi.object({
+    email: Joi.string().email().required().messages({
+      'string.empty': '"name" is required',
+    }),
+    password: Joi.string().required().messages({
+      'string.empty': '"amount" is required',
+    }),
+  });
+  const { error } = schema.validate(body);
+  const type = error?.details[0].type;
+  if (error) {
+    return { status: type === 'any.required' ? 400 : 422, message: { message: error.message } };
+  }
+}
