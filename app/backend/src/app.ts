@@ -1,5 +1,6 @@
 import * as express from 'express';
-import routers from './database/routes/router';
+import routerLogin from './database/routes/login.router';
+import routerTeams from './database/routes/team.router'
 
 class App {
   public app: express.Express;
@@ -8,7 +9,7 @@ class App {
     this.app = express();
 
     this.config();
-
+    this.routes();
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
   }
@@ -23,7 +24,12 @@ class App {
 
     this.app.use(express.json());
     this.app.use(accessControl);
-    this.app.use(routers);
+  }
+  //
+  private routes():void {
+    this.app.use('/login',routerLogin);
+    this.app.use('/teams',routerTeams);
+
   }
 
   public start(PORT: string | number):void {

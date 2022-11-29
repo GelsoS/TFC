@@ -1,4 +1,6 @@
+import * as bcrypt from 'bcryptjs';
 import { ModelStatic } from 'sequelize';
+
 import { compareSync } from 'bcryptjs';
 import { createToken, validaToken } from '../utils/jwt.util';
 import User from '../models/User';
@@ -9,11 +11,11 @@ export default class LoginService {
     private userModel: ModelStatic<User> = User,
   ) {}
 
-  public async login({ email, password }: ILogin): Promise<IReturnLogin> {
+  public async login( email: string, password: string ): Promise<IReturnLogin> {
     if (!email || !password) return { status: 400, message: 'All fields must be filled' };
     const user = await this.userModel.findOne({ where: { email } });
 
-    if (!user || !compareSync(password, user.password)) {
+    if (!user || !bcrypt.compareSync(password, user.password)) {
       return { status: 401, message: 'Incorrect email or password' };
     }
 

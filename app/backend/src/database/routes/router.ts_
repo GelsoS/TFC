@@ -1,9 +1,11 @@
 import { Router } from 'express';
 
 import loginRouter from './login.router';
+import teamRouter from './team.router'
 
 const routers = Router();
 
 routers.use('/login', loginRouter);
+routers.use('/teams', teamRouter);
 
 export default routers;

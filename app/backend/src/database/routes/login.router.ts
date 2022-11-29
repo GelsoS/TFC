@@ -4,7 +4,7 @@ import LoginController from '../controller/login.controller';
 const router = Router();
 const loginController = new LoginController();
 
-router.post('/', loginController.login.bind(loginController));
-router.get('/validate', loginController.validateLogin.bind(loginController));
+router.post('/', (req, res)=>loginController.login(req, res));
+router.get('/validate', (req, res)=> loginController.validateLogin(req, res));
 
 export default router;
