@@ -13,7 +13,7 @@ export default class loginController {
     res.status(status).json({ token: message });
   }
 
-  public async validateLogin(req: Request, res: Response) {
+  public validateLogin(req: Request, res: Response) {
     const { authorization } = req.headers
     const {status, role} =  this.loginService.validateLogin(authorization)
     res.status(status).json(role)

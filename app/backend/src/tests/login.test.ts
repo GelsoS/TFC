@@ -32,6 +32,18 @@ describe('rota login', () => {
       "message": "Incorrect email or password"
     });
   });
+
+  it('retorno status 200 dados corretos na rota /login post', async () => {
+    chaiHttpResponse = await chai
+       .request(app).post('/login').send({
+        email: "admin@admin.com",
+        password: "secret_admin"
+      });
+
+    expect(chaiHttpResponse.status).to.be.eq(200);
+    expect(chaiHttpResponse.body).to.deep.equal(token);
+  });
+
   it('erro ao nao informar email de acesso', async () => {
     chaiHttpResponse = await chai
        .request(app).post('/login').send(semEmail);
@@ -47,6 +59,14 @@ describe('rota login', () => {
     expect(chaiHttpResponse.status).to.be.eq(400);
     expect(chaiHttpResponse.body).to.deep.equal({ "message": "All fields must be filled" });
   });
+
+  it('retorno de token com status 200', async () => {
+    chaiHttpResponse = await chai
+       .request(app).get('/login/validate').auth('authorization', token.token);
+ 
+    expect(chaiHttpResponse.status).to.be.eq(200);
+    expect(chaiHttpResponse.body).to.deep.equal({ "role": "admin" })
+  })
 });
 
 // describe('Login Controller',()=>{
