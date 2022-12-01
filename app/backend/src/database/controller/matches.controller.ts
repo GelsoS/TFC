@@ -31,4 +31,10 @@ export default class matchesController {
     const { status, message } = await this.matches.finishMatch(+id);
     res.status(status).json({ message });
   }
+
+  public async updateId(req:Request, res:Response) {
+    const { params: { id }, body: { awayTeamGoals, homeTeamGoals } } = req;
+    const { status, message } = await this.matches.updateId(+id, awayTeamGoals, homeTeamGoals);
+    res.status(status).json(message);
+  }
 }

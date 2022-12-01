@@ -71,4 +71,18 @@ export default class MatchesService {
     });
     return { status: 200, message: 'Finished' };
   }
+
+  public async updateId(ID: number, awayTeamGoals: number, homeTeamGoals:number):
+  Promise<IReturnLogin> {
+    await this.matchesModel.update(
+      {
+        homeTeamGoals,
+        awayTeamGoals,
+      },
+      { where: {
+        id: ID,
+      } },
+    );
+    return { status: 200, message: 'placar atualizado!' };
+  }
 }
