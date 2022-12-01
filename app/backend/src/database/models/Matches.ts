@@ -3,8 +3,6 @@ import db from '.';
 import Team from './Team';
 
 class Matches extends Model {
-  declare id: number;
-  declare teamName: string;
 }
 
 Matches.init({

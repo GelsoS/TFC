@@ -18,6 +18,6 @@ export function validaToken(token: string | undefined) {
     const { role } = Jwt.verify(token, process.env.JWT_SECRET as string) as { role: string };
     return { status: undefined, role };
   } catch (error) {
-    return { status: 401, message: 'Invalid token' };
+    return { status: 401, message: 'Token must be a valid token' };
   }
 }

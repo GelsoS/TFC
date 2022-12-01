@@ -18,4 +18,17 @@ export default class matchesController {
     const { status, matches } = await this.matches.get();
     res.status(status).json(matches);
   }
+
+  public async salved(req:Request, res:Response) {
+    const { authorization } = req.headers;
+    const { status, message } = await this.matches.save(req.body, authorization);
+    res.status(status).json(message);
+  }
+
+  public async finishMatch(req:Request, res:Response) {
+    const { params: { id } } = req;
+    console.log(typeof id, id);
+    const { status, message } = await this.matches.finishMatch(+id);
+    res.status(status).json({ message });
+  }
 }

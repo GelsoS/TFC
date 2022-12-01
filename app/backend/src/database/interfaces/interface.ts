@@ -5,7 +5,7 @@ export interface ILogin {
 
 export interface IReturnLogin {
   status: number,
-  message: string,
+  message: string | object,
 }
 
 export interface IUser {
@@ -19,4 +19,11 @@ export interface IUser {
 export interface IRole {
   status: number;
   role: string | object;
+}
+
+export interface IInsertMatch {
+  homeTeam: number,
+  awayTeam: number,
+  homeTeamGoals: number,
+  awayTeamGoals: number
 }
