@@ -28,16 +28,34 @@ export default class LeaderBoard {
         efficiency: ((ponts[index][0] / (ponts[index][1] * 3)) * 100).toFixed(2),
       }
     ));
-    return LeaderBoard.sorted(result);
+    return result;
   }
 
-  private static sorted(placar: IScores[]): IScores[] {
-    placar.sort((a, b) =>
-      b.totalPoints - a.totalPoints
-      || b.totalVictories - a.totalVictories
-      || b.goalsBalance - a.goalsBalance
-      || b.goalsFavor - a.goalsFavor
-      || b.goalsOwn - a.goalsOwn);
-    return placar;
+  public async Geral() {
+    const geral = [];
+    const casa = await this.classification('homeTeam');
+    const fora = await this.classification('awayTeam');
+    for (let index = 0; index < casa.length; index += 1) {
+      geral.push({
+        name: casa[index].name,
+        totalPoints: casa[index].totalPoints + fora[index].totalPoints,
+        totalGames: casa[index].totalGames + fora[index].totalGames,
+        totalVictories: casa[index].totalVictories + fora[index].totalVictories,
+        totalDraws: casa[index].totalDraws + fora[index].totalDraws,
+        totalLosses: casa[index].totalLosses + fora[index].totalLosses,
+        goalsFavor: casa[index].goalsFavor + fora[index].goalsFavor,
+        goalsOwn: casa[index].goalsOwn + fora[index].goalsOwn,
+        goalsBalance: casa[index].goalsBalance + fora[index].goalsBalance,
+        efficiency: LeaderBoard.efficiency(casa[index], fora[index]).toFixed(2),
+      });
+    } return geral;
+  }
+
+  public static efficiency(casa:IScores, fora:IScores) {
+    let efficiency = 0;
+    const TP = casa.totalPoints + fora.totalPoints;
+    const TG = casa.totalGames + fora.totalGames;
+    efficiency = ((TP / (TG * 3)) * 100);
+    return efficiency;
   }
 }

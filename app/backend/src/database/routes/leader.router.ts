@@ -5,6 +5,7 @@ const router = Router();
 
 const leader = new Leader();
 
+router.get('/', (req, res) => leader.leaderBoard(req, res));
 router.get('/home', (req, res) => leader.leaderBoardHome(req, res));
 router.get('/away', (req, res) => leader.leaderBoardAway(req, res));
 
