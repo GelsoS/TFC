@@ -252,6 +252,6 @@ describe('rota matches', () => {
       .request(app).patch('/matches/5')
 
     expect(chaiHttpResponse.status).to.be.eq(200);
-    expect(chaiHttpResponse.body).to.deep.equal( "placar atualizado!" );
+    expect(chaiHttpResponse.body).to.deep.equal("placar atualizado!");
   })
 })

@@ -31,7 +31,7 @@ export default class LeaderBoard {
     return result;
   }
 
-  public async Geral() {
+  public async Geral():Promise<IScores[]> {
     const geral = [];
     const casa = await this.classification('homeTeam');
     const fora = await this.classification('awayTeam');
